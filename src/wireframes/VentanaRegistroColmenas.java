@@ -1,4 +1,4 @@
-package src.GUI;
+package src.wireframes;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +15,7 @@ public class VentanaRegistroColmenas extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 200);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        setResizable(false);
 
         // Crear componentes de la ventana
         JLabel ubicacionLabel = new JLabel("Ubicación:");
@@ -50,7 +51,9 @@ public class VentanaRegistroColmenas extends JFrame {
         });
 
         // Crear el panel para organizar los componentes
-        JPanel panel = new JPanel(new GridLayout(5, 2));
+        GridLayout layoutPanel = new GridLayout(5, 2);
+        layoutPanel.setHgap(10);
+        JPanel panel = new JPanel(layoutPanel);
         panel.add(ubicacionLabel);
         panel.add(ubicacionField);
         panel.add(cantidadColmenasLabel);
