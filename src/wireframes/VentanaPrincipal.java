@@ -53,6 +53,12 @@ public class VentanaPrincipal extends JFrame {
         });
 
 
+        botonReporteButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                new VentanaSeleccionReporte(); 
+            }
+        });
+
         // Colocar botones y título en el BorderLayout
 
         botonesPanel.add(botonRegistroColmenaButton);

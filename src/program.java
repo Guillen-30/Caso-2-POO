@@ -2,7 +2,7 @@ package src;
 
 import src.wireframes.VentanaPrincipal;
 
-public class main {
+public class program {
     public static void main(String[] args){
         VentanaPrincipal principal = new VentanaPrincipal();
 

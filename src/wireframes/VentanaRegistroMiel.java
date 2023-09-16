@@ -18,7 +18,7 @@ public class VentanaRegistroMiel extends JFrame {
         JLabel idColmenaLabel = new JLabel("ID de la Colmena:");
         JLabel cantidadMielLabel = new JLabel("Cantidad de Miel (ml):");
 
-        idColmenaComboBox = new JComboBox<>(new String[]{"Colmena 1", "Colmena 2", "Colmena 3"}); // Data Dummy, luego recibira las colmenas que hayan sido ingresadas
+        idColmenaComboBox = new JComboBox<>(new String[]{"Colmena 1", "Colmena 2", "Colmena 3"}); // TODO: Hacer que reciba las colmenas que hayan sido ingresadas
         cantidadMielField = new JTextField(10);
 
         JButton registrarButton = new JButton("Registrar");
