@@ -1,9 +1,9 @@
-package src.wireframes;
+package src.GUI;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import src.colmena.Colmena;
+import src.Colmena.Colmena;
 
 import javax.swing.*;
 

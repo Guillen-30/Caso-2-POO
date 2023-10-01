@@ -1,65 +1,31 @@
-package src.colmena;
+package src.Colmena;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Colmena {
     private int id;
-    private String ubicacion;
-    private int cantidadColmenas;
-    private String floracion;
-    private String estado;
-    private int miel;
+    //private int cantidadPanales;
+    private enEstados estado;
+    private double cantidadMiel;
+    private LocalDateTime fechaIngreso;
+    private int sectorNumber;
 
-    // Constructor
-    public Colmena(int id, String ubicacion, int cantidadColmenas, String floracion, String estado, int miel) {
+    public Colmena(int id, int cantidadPanales, enEstados estado, double cantidadMiel) {
         this.id = id;
-        this.ubicacion = ubicacion;
-        this.cantidadColmenas = cantidadColmenas;
-        this.floracion = floracion;
+        //this.cantidadPanales = cantidadPanales;
         this.estado = estado;
-        this.miel = miel;
+        this.cantidadMiel = cantidadMiel;
+        this.fechaIngreso = LocalDateTime.now();
+        }
+
+    public double calcularMiel() {
+        LocalDateTime now = LocalDateTime.now();
+        double horasDesdeIngreso = (double) fechaIngreso.until(now, ChronoUnit.HOURS);
+        return cantidadMiel * horasDesdeIngreso;
     }
 
-    // Getters y setters
-    public int getId() {
-        return id;
+    public void setSectorNumber(int sectorNumber) {
+        this.sectorNumber = sectorNumber;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public int getCantidadColmenas() {
-        return cantidadColmenas;
-    }
-
-    public void setCantidadColmenas(int cantidadColmenas) {
-        this.cantidadColmenas = cantidadColmenas;
-    }
-
-    public String getFloracion() {
-        return floracion;
-    }
-
-    public void setFloracion(String floracion) {
-        this.floracion = floracion;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public int getmiel() {
-        return miel;
-    }
-
-    public void setmiel(int miel) {
-        this.miel = miel;
-    }
 }

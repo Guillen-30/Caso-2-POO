@@ -1,6 +1,6 @@
 package src;
 
-import src.wireframes.VentanaPrincipal;
+import src.GUI.*;
 
 public class program {
     public static void main(String[] args){
