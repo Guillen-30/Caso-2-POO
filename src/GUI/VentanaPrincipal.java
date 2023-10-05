@@ -3,13 +3,18 @@ package src.GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.*;
+
+import src.Finca.Finca;
+import src.Serializador.serializador;
 
 public class VentanaPrincipal extends JFrame {
         // Color amariColor = new Color(237,236,179);//#edecb3
 
-    public VentanaPrincipal() {
+    public VentanaPrincipal(Finca finca) {
         GridLayout mainGridLayout = new GridLayout(4,3);
 
         setTitle("Sistema Apícola");
@@ -28,6 +33,15 @@ public class VentanaPrincipal extends JFrame {
         JPanel tituloImagen = new JPanel();
         tituloImagen.setLayout(tituloLayout);
 
+        //Panel de botones Guardar y Cargar
+
+        GridLayout GCLayout = new GridLayout(3,2);
+        JPanel CargarPanel = new JPanel();
+        CargarPanel.setLayout(GCLayout);
+
+        JPanel GuardarPanel = new JPanel();
+        GuardarPanel.setLayout(GCLayout);
+
         // Declaracion de titulo
         JLabel titulo = new JLabel("Sistema Apícola", JLabel.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 24)); // Ajustar la fuente y el tamaño del título
@@ -35,35 +49,88 @@ public class VentanaPrincipal extends JFrame {
 
         // Declaración de botones
         JButton botonRegistroColmenaButton = new JButton("Registrar Colmenas");
-        JButton botonRegistroMielButton = new JButton("Registrar Producción de Miel");
+        JButton botonRegistroEventosButton = new JButton("Registrar Eventos de Colmena");
         JButton botonReporteButton = new JButton("Generar Reporte");
+        JButton botonCargarButton = new JButton("Cargar Finca");
+        JButton botonGuardarButton = new JButton("Guardar Finca");
 
         // Funciones de botones
 
         botonRegistroColmenaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                new VentanaRegistroColmenas(); 
+                new VentanaRegistroColmenas(finca); 
             }
         });
 
-        botonRegistroMielButton.addActionListener(new ActionListener() {
+        botonRegistroEventosButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                new VentanaRegistroMiel(); 
+                new VentanaRegistroEventos(finca); 
             }
         });
 
 
         botonReporteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                new VentanaSeleccionReporte(); 
+                new VentanaReporte(finca); 
             }
         });
 
-        // Colocar botones y título en el BorderLayout
+        botonCargarButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                serializador s = new serializador();
+                try {
+                    s.deserialize(chooseFile());
+                } catch (IOException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+            };
+        });
+
+        botonGuardarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                System.out.println(finca);
+                // serializador s = new serializador();
+                // try {
+                //     s.serialize(finca);
+                // } catch (IOException ex) {
+                //     ex.printStackTrace();
+                // }
+            };
+        });
+
+        // Colocar botones y título en el panel
 
         botonesPanel.add(botonRegistroColmenaButton);
-        botonesPanel.add(botonRegistroMielButton);
+        botonesPanel.add(botonRegistroEventosButton);
         botonesPanel.add(botonReporteButton);
+
+        // Colocar botones y vacio en el panel Cargar
+
+        CargarPanel.add(new JPanel());
+        CargarPanel.add(new JPanel());
+        //CargarPanel.add(new JPanel());
+        
+        CargarPanel.add(new JPanel());
+        CargarPanel.add(botonCargarButton);
+        CargarPanel.add(new JPanel());
+
+        CargarPanel.add(new JPanel());
+        //CargarPanel.add(new JPanel());
+        //CargarPanel.add(new JPanel());
+
+        // Colocar botones y vacio en el panel Guardar
+
+        GuardarPanel.add(new JPanel());
+        GuardarPanel.add(new JPanel());
+        //GuardarPanel.add(new JPanel());
+        
+        //GuardarPanel.add(new JPanel());
+        GuardarPanel.add(botonGuardarButton);
+        GuardarPanel.add(new JPanel());
+
+        GuardarPanel.add(new JPanel());
+        GuardarPanel.add(new JPanel());
+        //GuardarPanel.add(new JPanel());
 
         // Espacio entre botones
 
@@ -89,24 +156,37 @@ public class VentanaPrincipal extends JFrame {
         add(new JPanel());
         add(icono);
         add(new JPanel());
+
         add(new JPanel());
         add(tituloImagen);
         add(new JPanel());
+
         add(new JPanel());
         add(botonesPanel);
         add(new JPanel());
+
+        add(CargarPanel);
         add(new JPanel());
-        add(new JPanel());
-        add(new JPanel());
+        add(GuardarPanel);
 
         // Hacer visible la ventana
-        setVisible(true);
+        setVisible(true);}
+
+    public static String chooseFile() {
+    JFileChooser fileChooser = new JFileChooser();
+    int result = fileChooser.showOpenDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        return selectedFile.getAbsolutePath();
+    } else {
+        return null;
     }
+}
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipal();
+                new VentanaPrincipal(null);
             }
         });
     }

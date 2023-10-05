@@ -1,31 +1,36 @@
 package src.Colmena;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Colmena {
+public class Colmena implements Serializable{
     private int id;
-    //private int cantidadPanales;
     private enEstados estado;
-    private double cantidadMiel;
-    private LocalDateTime fechaIngreso;
-    private int sectorNumber;
+    private ArrayList<Evento> eventos;
 
-    public Colmena(int id, int cantidadPanales, enEstados estado, double cantidadMiel) {
+    public Colmena(int id, enEstados estado) {
         this.id = id;
-        //this.cantidadPanales = cantidadPanales;
         this.estado = estado;
-        this.cantidadMiel = cantidadMiel;
-        this.fechaIngreso = LocalDateTime.now();
+        this.eventos = new ArrayList<Evento>();
         }
 
-    public double calcularMiel() {
-        LocalDateTime now = LocalDateTime.now();
-        double horasDesdeIngreso = (double) fechaIngreso.until(now, ChronoUnit.HOURS);
-        return cantidadMiel * horasDesdeIngreso;
+    public void addEvento(Evento evento){
+        eventos.add(evento);
     }
 
-    public void setSectorNumber(int sectorNumber) {
-        this.sectorNumber = sectorNumber;
+    public int getID(){
+        return id;
     }
 
+    public enEstados getEstado(){
+        return estado;
+    }
+
+    public ArrayList<Evento> getEventos(){
+        return eventos;
+    }
+
+    @Override
+    public String toString(){
+        return "\t\t" +id + ") Colmena: " + estado + "\n" + eventos;
+    }
 }
