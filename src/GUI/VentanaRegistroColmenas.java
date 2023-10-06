@@ -54,7 +54,12 @@ public class VentanaRegistroColmenas extends JFrame {
                             }
                         }
                         if((int)sectorComboBox.getSelectedItem()==sector.getSectorNumber()){
-                            sector.addColmena(new Colmena(id,enEstados.valueOf(estado)));
+                            if(sector.getColmenas().size()<sector.getMaxColmenas()){
+                                sector.addColmena(new Colmena(id,enEstados.valueOf(estado)));
+                            }else{
+                                JOptionPane.showMessageDialog(VentanaRegistroColmenas.this,"Sector lleno","Aviso",JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
 
                         }
                     }

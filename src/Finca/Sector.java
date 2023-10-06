@@ -44,4 +44,8 @@ public class Sector {
     public String toString(){
         return "\tSector " + sectorNumber + " - " + floracion + "\n" + colmenas;
     }
+
+    public int getMaxColmenas() {
+        return maxColmenas;
+    }
 }

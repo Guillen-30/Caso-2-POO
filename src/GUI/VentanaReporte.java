@@ -16,7 +16,7 @@ public class VentanaReporte extends JFrame {
 
         setTitle("Reporte de colmenas");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(800, 500);
+        setSize(900, 500);
         setLocation(200,200);
         setResizable(false);
         setLayout(mainGridLayout);
@@ -28,7 +28,7 @@ public class VentanaReporte extends JFrame {
         // Declaracion elementos de panel de datos
 
         JTable tabla = new JTable();
-        String[] columnNames = {"ID","Finca","Ubicacion","Estado","Floracion","Eventos"};
+        String[] columnNames = {"Sector","ID","Finca","Ubicacion","Estado","Floracion","Eventos"};
         DefaultTableModel model = new DefaultTableModel(columnNames,0);
 
         //Prueba System.out.println con todos los datos a mostrar
@@ -43,11 +43,11 @@ public class VentanaReporte extends JFrame {
                 "\nEventos: "
                 );
                 if(colmena.getEventos().isEmpty()){
-                    model.addRow(new Object[]{colmena.getID(),finca.getNombre(),finca.getUbicacion(),colmena.getEstado(),sector.getFloracion(),"NO HAY EVENTOS"});
+                    model.addRow(new Object[]{sector.getSectorNumber(),colmena.getID(),finca.getNombre(),finca.getUbicacion(),colmena.getEstado(),sector.getFloracion(),"NO HAY EVENTOS"});
                 }
                 else{
                 for(Evento evento:colmena.getEventos()){
-                    model.addRow(new Object[]{colmena.getID(),finca.getNombre(),finca.getUbicacion(),colmena.getEstado(),sector.getFloracion(),evento});
+                    model.addRow(new Object[]{sector.getSectorNumber(),colmena.getID(),finca.getNombre(),finca.getUbicacion(),colmena.getEstado(),sector.getFloracion(),evento});
                 }}
                 // for(Evento evento:colmena.getEventos()){
                 //     System.out.println(evento.getEvento());
@@ -63,6 +63,8 @@ public class VentanaReporte extends JFrame {
         tabla.getColumnModel().getColumn(2).setPreferredWidth(1);
         tabla.getColumnModel().getColumn(3).setPreferredWidth(1);
         tabla.getColumnModel().getColumn(4).setPreferredWidth(1);
+        tabla.getColumnModel().getColumn(5).setPreferredWidth(1);
+
 
 
         

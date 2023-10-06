@@ -1,3 +1,6 @@
+//Acuerdo: Un programa donde se puedan manejar todas las colmenas y sectores de una finca, permitiendo registrar eventos y ver una tabla con el contenido de todo
+//Estrategia: Implementar vndntanas y controllers para recibir bien los datos
+
 package src;
 
 import java.io.File;
@@ -19,7 +22,7 @@ import src.Finca.enFloracion;
 import src.GUI.*;
 import src.Serializador.serializador;
 
-public class program {
+public class main {
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         Finca finca;
         finca = new Finca(0, null, null);  
@@ -98,4 +101,5 @@ public class program {
 }
 
 
-//TODO: Revisar guardar en json
+//TODO: Para preliminar 3 aka entrega final revisar guardar en json
+//?: Si hace falta, agregar un checkbox de si el evento es un registro de miel para poder generar la miel generada en total
