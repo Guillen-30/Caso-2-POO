@@ -1,6 +1,8 @@
 package src.GUI;
 
 import java.awt.*;
+import java.util.Arrays;
+
 import src.Colmena.Colmena;
 import src.Colmena.Evento;
 import src.Finca.Finca;
@@ -8,6 +10,8 @@ import src.Finca.Sector;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class VentanaReporte extends JFrame {
         // Color amariColor = new Color(237,236,179);//#edecb3
@@ -28,7 +32,7 @@ public class VentanaReporte extends JFrame {
         // Declaracion elementos de panel de datos
 
         JTable tabla = new JTable();
-        String[] columnNames = {"Sector","ID","Finca","Ubicacion","Estado","Floracion","Eventos"};
+        String[] columnNames = {"Sector","ID","Finca","Ubicacion","Estado","Floracion","Evento","Fecha","Miel"};
         DefaultTableModel model = new DefaultTableModel(columnNames,0);
 
         //Prueba System.out.println con todos los datos a mostrar
@@ -43,11 +47,11 @@ public class VentanaReporte extends JFrame {
                 "\nEventos: "
                 );
                 if(colmena.getEventos().isEmpty()){
-                    model.addRow(new Object[]{sector.getSectorNumber(),colmena.getID(),finca.getNombre(),finca.getUbicacion(),colmena.getEstado(),sector.getFloracion(),"NO HAY EVENTOS"});
+                    model.addRow(new Object[]{sector.getSectorNumber(),colmena.getID(),finca.getNombre(),finca.getUbicacion(),colmena.getEstado(),sector.getFloracion(),"NO HAY EVENTOS",null,colmena.getMielProducida()+"mL"});
                 }
                 else{
                 for(Evento evento:colmena.getEventos()){
-                    model.addRow(new Object[]{sector.getSectorNumber(),colmena.getID(),finca.getNombre(),finca.getUbicacion(),colmena.getEstado(),sector.getFloracion(),evento});
+                    model.addRow(new Object[]{sector.getSectorNumber(),colmena.getID(),finca.getNombre(),finca.getUbicacion(),colmena.getEstado(),sector.getFloracion(),evento.getEvento(),evento.getDateTime(),colmena.getMielProducida()+"mL"});
                 }}
                 // for(Evento evento:colmena.getEventos()){
                 //     System.out.println(evento.getEvento());
@@ -57,6 +61,11 @@ public class VentanaReporte extends JFrame {
             }
         }
         tabla.setModel(model);
+        // Crear TableRowSorter y asignarlo a la tabla
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
+        tabla.setRowSorter(sorter);
+        // Ordenar la tabla por la columna "Fecha"
+        sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(7, SortOrder.ASCENDING))); // 7 is the index of the "Fecha" column
         tabla.setDefaultEditor(Object.class, null);
         tabla.getColumnModel().getColumn(0).setPreferredWidth(1);
         tabla.getColumnModel().getColumn(1).setPreferredWidth(1);

@@ -6,11 +6,13 @@ public class Colmena implements Serializable{
     private int id;
     private enEstados estado;
     private ArrayList<Evento> eventos;
+    private int mielProducida=0;
 
-    public Colmena(int id, enEstados estado) {
+    public Colmena(int id, enEstados estado, int mielProducida) {
         this.id = id;
         this.estado = estado;
         this.eventos = new ArrayList<Evento>();
+        this.mielProducida+=mielProducida;
         }
 
     public void addEvento(Evento evento){
@@ -27,6 +29,14 @@ public class Colmena implements Serializable{
 
     public ArrayList<Evento> getEventos(){
         return eventos;
+    }
+
+    public int getMielProducida(){
+        return mielProducida;
+    }
+
+    public void addToMielProducida(int mL){
+        mielProducida += mL;
     }
 
     @Override

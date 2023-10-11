@@ -10,7 +10,9 @@
       "id": 1,
       "estado": "SANA",
       "eventos": [{"eventoName":"Limpieza",
-      "dateTime":"2023-10-04 15:02"}]
+      "dateTime":"2023-10-04 15:02"}],
+      "mielProducida":15
+      
     }]
   },{
     "sectorNumber": 2,
@@ -19,7 +21,8 @@
     "colmenas": [{
       "id": 3,
       "estado": "CRITICA",
-      "eventos": []
+      "eventos": [],
+      "mielProducida":200
   }]
   }]
 }

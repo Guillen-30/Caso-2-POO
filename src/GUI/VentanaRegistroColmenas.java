@@ -9,10 +9,14 @@ import src.Finca.Sector;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Hashtable;
 
 public class VentanaRegistroColmenas extends JFrame {
     private JTextField idField;
     private JComboBox<enEstados> estadoComboBox;
+    private Sector associatedObject;
 
     public VentanaRegistroColmenas(Finca finca) {
         setTitle("Registro de Colmenas");
@@ -27,46 +31,79 @@ public class VentanaRegistroColmenas extends JFrame {
         JLabel estadoLabel = new JLabel("Estado de la colmena:");
 
         idField = new JTextField(20);
-        JComboBox<Integer> sectorComboBox = new JComboBox<Integer>();
+        JComboBox<ComboBoxItem> sectorComboBox = new JComboBox<>();
         for (Sector sector : finca.getSectores()){
-            sectorComboBox.addItem(sector.getSectorNumber());
+            sectorComboBox.addItem(new ComboBoxItem(sector.getSectorNumber(), sector));
+            associatedObject=sector;
         }
         estadoComboBox = new JComboBox<enEstados>(enEstados.values());
 
+        sectorComboBox.addActionListener(e -> {
+            ComboBoxItem selected = (ComboBoxItem) sectorComboBox.getSelectedItem();
+            associatedObject = (Sector) selected.getAssociatedObject();
+            System.out.println("----------------------------------"+associatedObject);
+            
+            });
 
+            idField.addKeyListener((KeyListener) new KeyListener() {
+                
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    char c = e.getKeyChar();
+                    if (!Character.isDigit(c)) {
+                        e.consume(); // Ignorar caracteres que no son números
+                    }
+                }
+                @Override
+                public void keyPressed(KeyEvent e) {
+
+                }
+                @Override
+                public void keyReleased(KeyEvent e) {
+
+                }
+            });
+            
         JButton registrarButton = new JButton("Registrar");
         registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                int id = Integer.parseInt(idField.getText());
-                String estado = estadoComboBox.getSelectedItem().toString();
-                
+              
                 if (idField.getText().isEmpty()){
                     JOptionPane.showMessageDialog(VentanaRegistroColmenas.this,"Error al ingresar datos","Aviso",JOptionPane.ERROR_MESSAGE);
                 }
                 else{
-                    for(Sector sector: finca.getSectores()){
-                        for(Colmena colmena:sector.getColmenas()){
-                            if(Integer.toString(colmena.getID()).equals(idField.getText())){
-                                JOptionPane.showMessageDialog(VentanaRegistroColmenas.this,"ID ya en uso","Aviso",JOptionPane.ERROR_MESSAGE);
-                                return;
-                            }
-                        }
-                        if((int)sectorComboBox.getSelectedItem()==sector.getSectorNumber()){
-                            if(sector.getColmenas().size()<sector.getMaxColmenas()){
-                                sector.addColmena(new Colmena(id,enEstados.valueOf(estado)));
-                            }else{
-                                JOptionPane.showMessageDialog(VentanaRegistroColmenas.this,"Sector lleno","Aviso",JOptionPane.ERROR_MESSAGE);
-                                return;
-                            }
+                    String estado = estadoComboBox.getSelectedItem().toString();
+                   
 
+                    // Create a Hashtable to store the Colmena objects
+                    Hashtable<Integer, Colmena> colmenas = new Hashtable<Integer, Colmena>();
+
+                    // Add Colmena objects to the Hashtable
+                    for (Colmena colmena : associatedObject.getColmenas()) {
+                        colmenas.put(colmena.getID(), colmena);
+                    }
+
+                    // Search for a Colmena object by ID
+                    Integer id = Integer.parseInt(idField.getText());
+                    Colmena colmena = colmenas.get(id);
+                    if (colmena != null) {
+                        JOptionPane.showMessageDialog(VentanaRegistroColmenas.this, "ID ya en uso", "Aviso", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    } else {
+                        if (associatedObject.getColmenas().size() < associatedObject.getMaxColmenas()) {
+                            associatedObject.addColmena(new Colmena(id, enEstados.valueOf(estado), 0));
+                            dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(VentanaRegistroColmenas.this, "No se pueden agregar más colmenas a este sector", "Aviso", JOptionPane.ERROR_MESSAGE);
                         }
                     }
-                    System.out.println("ID: " + idField.getText());
-                    System.out.println("Estado de la colmena: " + estado);
-                    System.out.println("Sector en que se ubica: " + sectorComboBox.getSelectedItem());
-                    //TODO: Revisar que no hayan mas de maxColmenas en el sector
+
+                    
+                
+                System.out.println("ID: " + idField.getText());
+                System.out.println("Estado de la colmena: " + estado);
+                System.out.println("Sector en que se ubica: " + sectorComboBox.getSelectedItem());
                 }
             }
         });
