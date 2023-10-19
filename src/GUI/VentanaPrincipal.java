@@ -10,11 +10,15 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import src.jsonHandler;
 import src.Finca.Finca;
 import src.Serializador.serializador;
 
 public class VentanaPrincipal extends JFrame {
         // Color amariColor = new Color(237,236,179);//#edecb3
+
+    private Object botonGuardarButton;
+
 
     public VentanaPrincipal(Finca finca) {
         GridLayout mainGridLayout = new GridLayout(4,3);
@@ -153,6 +157,13 @@ public class VentanaPrincipal extends JFrame {
         tituloImagen.add(new JPanel());
         tituloImagen.add(titulo);
 
+        botonGuardarButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            jsonHandler jsonHandler = new jsonHandler();
+            jsonHandler.saveFinca(finca);
+        }
+    });
+
         // Colocar paneles en ventana
 
         add(new JPanel());
@@ -185,11 +196,18 @@ public class VentanaPrincipal extends JFrame {
     }
 }
 
+
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new VentanaPrincipal(null);
             }
         });
+    }
+
+
+    public Object getBotonGuardarButton() {
+        return botonGuardarButton;
     }
 }

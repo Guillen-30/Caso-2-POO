@@ -1,28 +1,28 @@
 {
-  "id": 1,
-  "nombre": "Finca la Prueba",
-  "ubicacion": "Cartago",
-  "sectores": [{
-    "sectorNumber": 1,
-    "maxColmenas": 5,
-    "floracion": "MARGARITA",
-    "colmenas": [{
-      "id": 1,
-      "estado": "SANA",
-      "eventos": [{"eventoName":"Limpieza",
-      "dateTime":"2023-10-04 15:02"}],
-      "mielProducida":15
-      
+    "id": 1,
+    "nombre": "Finca la Prueba",
+    "ubicacion": "Cartago",
+    "sectores": [{
+      "sectorNumber": 1,
+      "maxColmenas": 5,
+      "floracion": "MARGARITA",
+      "colmenas": [{
+        "id": 1,
+        "estado": "SANA",
+        "eventos": [{"eventoName":"Limpieza",
+        "dateTime":"2023-10-04 15:02"}],
+        "mielProducida":15
+        
+      }]
+    },{
+      "sectorNumber": 2,
+      "maxColmenas": 7,
+      "floracion": "MIXTO",
+      "colmenas": [{
+        "id": 3,
+        "estado": "CRITICA",
+        "eventos": [],
+        "mielProducida":200
     }]
-  },{
-    "sectorNumber": 2,
-    "maxColmenas": 7,
-    "floracion": "MIXTO",
-    "colmenas": [{
-      "id": 3,
-      "estado": "CRITICA",
-      "eventos": [],
-      "mielProducida":200
-  }]
-  }]
-}
+    }]
+  }
