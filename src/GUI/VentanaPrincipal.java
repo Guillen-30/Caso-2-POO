@@ -6,13 +6,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-
 import javax.swing.*;
 
-import src.jsonHandler;
+import src.JsonHandler;
 import src.Finca.Finca;
-import src.Serializador.serializador;
 
 public class VentanaPrincipal extends JFrame {
         // Color amariColor = new Color(237,236,179);//#edecb3
@@ -81,16 +78,6 @@ public class VentanaPrincipal extends JFrame {
             }
         });
 
-        botonCargarButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                serializador s = new serializador();
-                try {
-                    s.deserialize(chooseFile());
-                } catch (IOException | ClassNotFoundException ex) {
-                    ex.printStackTrace();
-                }
-            };
-        });
 
         botonGuardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
@@ -159,7 +146,7 @@ public class VentanaPrincipal extends JFrame {
 
         botonGuardarButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            jsonHandler jsonHandler = new jsonHandler();
+            JsonHandler jsonHandler = new JsonHandler();
             jsonHandler.saveFinca(finca);
         }
     });

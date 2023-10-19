@@ -1,7 +1,10 @@
 package src.Colmena;
 
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer;
 
+@JsonDeserialize(using = DateDeserializer.class)
 public class Evento {
     private String evento;
     private LocalDateTime dateTime;
@@ -24,5 +27,6 @@ public class Evento {
     public String toString(){
         return "\t\t\t"+evento + " - " + dateTime + "\n";
     }
+    
 }
 

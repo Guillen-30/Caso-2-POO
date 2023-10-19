@@ -35,6 +35,7 @@ public class VentanaRegistroColmenas extends JFrame {
         for (Sector sector : finca.getSectores()){
             sectorComboBox.addItem(new ComboBoxItem(sector.getSectorNumber(), sector));
             associatedObject=sector;
+            sectorComboBox.setSelectedItem(null);
         }
         estadoComboBox = new JComboBox<enEstados>(enEstados.values());
 

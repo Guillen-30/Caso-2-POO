@@ -36,8 +36,8 @@ public class VentanaReporte extends JFrame {
         DefaultTableModel model = new DefaultTableModel(columnNames,0);
 
         //Prueba System.out.println con todos los datos a mostrar
-
-        for(Sector sector:finca.getSectores()){
+        try {
+            for(Sector sector:finca.getSectores()){
             for(Colmena colmena:sector.getColmenas()){
                 System.out.println("ID de colmena: "+colmena.getID()+
                 "\nFinca: "+finca.getNombre()+
@@ -112,5 +112,10 @@ public class VentanaReporte extends JFrame {
 
         // Hacer visible la ventana
         setVisible(true);
+        } catch (Exception e) {
+            System.out.println("No hay colmenas registradas");
+            JOptionPane.showMessageDialog(null, "No hay colmenas registradas", "Aviso", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 }

@@ -19,10 +19,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -249,26 +247,6 @@ public class VentanaRegistroEventos extends JFrame {
         // Mostrar la ventana
         setVisible(true);
 
-    }
-    
-        // Función para validar la fecha
-    private boolean isValidDate(String year, String month, String day) {
-        try {
-            LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-            return true;
-        } catch (DateTimeException e) {
-            return false;
-        }
-    }
-
-    // Función para validar la hora
-    private boolean isValidTime(String hour, String minute) {
-        try {
-            LocalTime.of(Integer.parseInt(hour), Integer.parseInt(minute));
-            return true;
-        } catch (DateTimeException e) {
-            return false;
-        }
     }
 
 }

@@ -3,6 +3,8 @@ package src.Finca;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Finca implements Serializable{
     private int id;
     private String nombre;
@@ -10,7 +12,7 @@ public class Finca implements Serializable{
     private ArrayList<Sector> sectores;
     
 
-    public Finca(int id, String nombre, String ubicacion) {
+    public Finca(@JsonProperty("id")int id, @JsonProperty("nombre")String nombre, @JsonProperty("ubicacion")String ubicacion) {
         this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
