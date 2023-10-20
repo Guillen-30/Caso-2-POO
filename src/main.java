@@ -13,7 +13,9 @@ public class main {
         JsonHandler jsonHandler = new JsonHandler();
         finca = jsonHandler.startFinca();
         System.out.println(finca);
-        new VentanaPrincipal(finca);
+        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(finca);
+
+        ventanaPrincipal.setVisible(true);
     }
 }
 
@@ -22,6 +24,8 @@ public class main {
 //*Listo */
 
 //TODO: Crear ya sea un controller para todas las ventanas o bien un controller por ventana (MVC), lo importante que hayan clases que sean mediadoras entre el UI y la lógica
+//*Listo para VentanaPrincipal*/
+//*Listo para VentanaRegistroColmenas*/
 
 //TODO: La búsqueda de colmena hay que optimizarla, pensa en usar hashtablas
 //*Listo para registrar colmenas*/

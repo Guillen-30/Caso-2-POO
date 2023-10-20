@@ -17,8 +17,12 @@ public class VentanaRegistroColmenas extends JFrame {
     private JTextField idField;
     private JComboBox<enEstados> estadoComboBox;
     private Sector associatedObject;
+    private Finca finca;
+    private int id;
+    private String estado;
 
     public VentanaRegistroColmenas(Finca finca) {
+        this.finca = finca;
         setTitle("Registro de Colmenas");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 200);
@@ -34,7 +38,7 @@ public class VentanaRegistroColmenas extends JFrame {
         JComboBox<ComboBoxItem> sectorComboBox = new JComboBox<>();
         for (Sector sector : finca.getSectores()){
             sectorComboBox.addItem(new ComboBoxItem(sector.getSectorNumber(), sector));
-            associatedObject=sector;
+            this.associatedObject=sector;
             sectorComboBox.setSelectedItem(null);
         }
         estadoComboBox = new JComboBox<enEstados>(enEstados.values());
@@ -69,42 +73,21 @@ public class VentanaRegistroColmenas extends JFrame {
         registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              
-                if (idField.getText().isEmpty()){
+                if (idField.getText().isEmpty()||estadoComboBox.getSelectedItem()==null||sectorComboBox.getSelectedItem()==null){
                     JOptionPane.showMessageDialog(VentanaRegistroColmenas.this,"Error al ingresar datos","Aviso",JOptionPane.ERROR_MESSAGE);
-                }
-                else{
+                }else{
                     String estado = estadoComboBox.getSelectedItem().toString();
-                   
-
-                    // Create a Hashtable to store the Colmena objects
+                    // Generar una hashtable para almacenar las colmenas
                     Hashtable<Integer, Colmena> colmenas = new Hashtable<Integer, Colmena>();
-
-                    // Add Colmena objects to the Hashtable
+                    // Agregar las colmenas a la hashtable
                     for (Colmena colmena : associatedObject.getColmenas()) {
                         colmenas.put(colmena.getID(), colmena);
                     }
-
-                    // Search for a Colmena object by ID
+                    // Buscar una colmena por el ID
                     Integer id = Integer.parseInt(idField.getText());
-                    Colmena colmena = colmenas.get(id);
-                    if (colmena != null) {
-                        JOptionPane.showMessageDialog(VentanaRegistroColmenas.this, "ID ya en uso", "Aviso", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    } else {
-                        if (associatedObject.getColmenas().size() < associatedObject.getMaxColmenas()) {
-                            associatedObject.addColmena(new Colmena(id, enEstados.valueOf(estado), 0));
-                            dispose();
-                        } else {
-                            JOptionPane.showMessageDialog(VentanaRegistroColmenas.this, "No se pueden agregar más colmenas a este sector", "Aviso", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-
-                    
-                
-                System.out.println("ID: " + idField.getText());
-                System.out.println("Estado de la colmena: " + estado);
-                System.out.println("Sector en que se ubica: " + sectorComboBox.getSelectedItem());
+                    VentanaRegistroColmenasController controller = new VentanaRegistroColmenasController(VentanaRegistroColmenas.this, finca, estado, id, associatedObject,colmenas);
+                    controller.addColmenaController(estado, id, associatedObject,colmenas);
+                    dispose();
                 }
             }
         });
@@ -128,4 +111,6 @@ public class VentanaRegistroColmenas extends JFrame {
         // Mostrar la ventana
         setVisible(true);
     }
+
+
 }

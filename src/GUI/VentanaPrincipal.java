@@ -3,18 +3,18 @@ package src.GUI;
 
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import javax.swing.*;
 
-import src.JsonHandler;
 import src.Finca.Finca;
 
 public class VentanaPrincipal extends JFrame {
-        // Color amariColor = new Color(237,236,179);//#edecb3
 
-    private Object botonGuardarButton;
+    private AbstractButton botonRegistroColmenas;
+    private AbstractButton botonRegistroEventos;
+    private AbstractButton botonReporte;
+    private AbstractButton botonGuardar;
+    private VentanaPrincipalController controller;
 
 
     public VentanaPrincipal(Finca finca) {
@@ -38,10 +38,7 @@ public class VentanaPrincipal extends JFrame {
 
         //Panel de botones Guardar y Cargar
 
-        GridLayout GCLayout = new GridLayout(3,2);
-        JPanel CargarPanel = new JPanel();
-        CargarPanel.setLayout(GCLayout);
-
+        GridLayout GCLayout = new GridLayout(3,1);
         JPanel GuardarPanel = new JPanel();
         GuardarPanel.setLayout(GCLayout);
 
@@ -52,44 +49,13 @@ public class VentanaPrincipal extends JFrame {
 
         // Declaración de botones
         JButton botonRegistroColmenaButton = new JButton("Registrar Colmenas");
+        this.botonRegistroColmenas = botonRegistroColmenaButton;
         JButton botonRegistroEventosButton = new JButton("Registrar Eventos de Colmena");
+        this.botonRegistroEventos = botonRegistroEventosButton;
         JButton botonReporteButton = new JButton("Generar Reporte");
-        JButton botonCargarButton = new JButton("Cargar Finca");
+        this.botonReporte = botonReporteButton;
         JButton botonGuardarButton = new JButton("Guardar Finca");
-
-        // Funciones de botones
-
-        botonRegistroColmenaButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                new VentanaRegistroColmenas(finca); 
-            }
-        });
-
-        botonRegistroEventosButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                new VentanaRegistroEventos(finca); 
-            }
-        });
-
-
-        botonReporteButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                new VentanaReporte(finca); 
-            }
-        });
-
-
-        botonGuardarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                System.out.println(finca);
-                // serializador s = new serializador();
-                // try {
-                //     s.serialize(finca);
-                // } catch (IOException ex) {
-                //     ex.printStackTrace();
-                // }
-            };
-        });
+        this.botonGuardar = botonGuardarButton;
 
         // Colocar botones y título en el panel
 
@@ -97,33 +63,11 @@ public class VentanaPrincipal extends JFrame {
         botonesPanel.add(botonRegistroEventosButton);
         botonesPanel.add(botonReporteButton);
 
-        // Colocar botones y vacio en el panel Cargar
-
-        CargarPanel.add(new JPanel());
-        CargarPanel.add(new JPanel());
-        //CargarPanel.add(new JPanel());
-        
-        CargarPanel.add(new JPanel());
-        CargarPanel.add(botonCargarButton);
-        CargarPanel.add(new JPanel());
-
-        CargarPanel.add(new JPanel());
-        //CargarPanel.add(new JPanel());
-        //CargarPanel.add(new JPanel());
-
         // Colocar botones y vacio en el panel Guardar
 
         GuardarPanel.add(new JPanel());
-        GuardarPanel.add(new JPanel());
-        //GuardarPanel.add(new JPanel());
-        
-        //GuardarPanel.add(new JPanel());
         GuardarPanel.add(botonGuardarButton);
         GuardarPanel.add(new JPanel());
-
-        GuardarPanel.add(new JPanel());
-        GuardarPanel.add(new JPanel());
-        //GuardarPanel.add(new JPanel());
 
         // Espacio entre botones
 
@@ -144,13 +88,6 @@ public class VentanaPrincipal extends JFrame {
         tituloImagen.add(new JPanel());
         tituloImagen.add(titulo);
 
-        botonGuardarButton.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            JsonHandler jsonHandler = new JsonHandler();
-            jsonHandler.saveFinca(finca);
-        }
-    });
-
         // Colocar paneles en ventana
 
         add(new JPanel());
@@ -165,36 +102,37 @@ public class VentanaPrincipal extends JFrame {
         add(botonesPanel);
         add(new JPanel());
 
-        add(CargarPanel);
         add(new JPanel());
         add(GuardarPanel);
+        add(new JPanel());
 
         // Hacer visible la ventana
-        setVisible(true);}
-
-    public static String chooseFile() {
-    JFileChooser fileChooser = new JFileChooser();
-    int result = fileChooser.showOpenDialog(null);
-    if (result == JFileChooser.APPROVE_OPTION) {
-        File selectedFile = fileChooser.getSelectedFile();
-        return selectedFile.getAbsolutePath();
-    } else {
-        return null;
+        setVisible(true);
+        VentanaPrincipalController controller = new VentanaPrincipalController(this, finca);
+        this.controller = controller;
+        System.out.println(this.controller);
     }
-}
 
-
-
+        public void addBotonRegistroColmenasListener(ActionListener listener) {
+            botonRegistroColmenas.addActionListener(listener);
+        }
+    
+        public void addBotonRegistroEventosListener(ActionListener listener) {
+            botonRegistroEventos.addActionListener(listener);
+        }
+    
+        public void addBotonReporteListener(ActionListener listener) {
+            botonReporte.addActionListener(listener);
+        }
+    
+        public void addBotonGuardarListener(ActionListener listener) {
+            botonGuardar.addActionListener(listener);
+        }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new VentanaPrincipal(null);
             }
         });
-    }
-
-
-    public Object getBotonGuardarButton() {
-        return botonGuardarButton;
-    }
+    }    
 }
