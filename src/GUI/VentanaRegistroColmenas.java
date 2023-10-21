@@ -17,12 +17,7 @@ public class VentanaRegistroColmenas extends JFrame {
     private JTextField idField;
     private JComboBox<enEstados> estadoComboBox;
     private Sector associatedObject;
-    private Finca finca;
-    private int id;
-    private String estado;
-
     public VentanaRegistroColmenas(Finca finca) {
-        this.finca = finca;
         setTitle("Registro de Colmenas");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 200);

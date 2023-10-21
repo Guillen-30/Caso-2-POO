@@ -26,6 +26,8 @@ public class main {
 //TODO: Crear ya sea un controller para todas las ventanas o bien un controller por ventana (MVC), lo importante que hayan clases que sean mediadoras entre el UI y la lógica
 //*Listo para VentanaPrincipal*/
 //*Listo para VentanaRegistroColmenas*/
+//*Listo para VentanaRegistroEventos*/
+//*Listo para VentanaReporte*/
 
 //TODO: La búsqueda de colmena hay que optimizarla, pensa en usar hashtablas
 //*Listo para registrar colmenas*/
@@ -36,9 +38,6 @@ public class main {
 
 //TODO: La fecha en registrar evento sacarla con un datetimepicker
 //*Listo */
-
-//TODO: Los id de colmena pasarlos de inputtext a un combobox o un list o un autocomplete
-//??Id unico?
 
 //TODO: Cuando se usan listas para seleccionar, se puede hacer bind al objeto como tal para no tener que hacer search, si no que el evento de action ya me trae un objeto asociado
 //*Listo para registrar colmenas*/

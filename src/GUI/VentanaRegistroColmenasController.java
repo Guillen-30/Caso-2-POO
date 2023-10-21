@@ -21,7 +21,6 @@ public class VentanaRegistroColmenasController {
     public void addColmenaController(String estado, int id, Sector sector,Hashtable<Integer, Colmena> colmenas){
         Colmena colmena = colmenas.get(id);
         if (colmena != null) {
-            System.out.println(colmena+"0000000000000000"+colmena.getClass());
             JOptionPane.showMessageDialog(view, "ID ya en uso", "Aviso", JOptionPane.ERROR_MESSAGE);
             return;
         } else {
@@ -33,7 +32,6 @@ public class VentanaRegistroColmenasController {
                     if (i.getSectorNumber()==sector.getSectorNumber()){
                         i.addColmena(colmena);
                         JOptionPane.showMessageDialog(view, "Colmena registrada", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-
                     }
                 };
             }

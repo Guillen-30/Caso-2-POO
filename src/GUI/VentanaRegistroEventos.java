@@ -102,29 +102,16 @@ public class VentanaRegistroEventos extends JFrame {
         registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aquí debes implementar la lógica para guardar los datos en tu sistema
                 enEvento tipoEvento = (enEvento) eventoComboBox.getSelectedItem();
-
+                
                 System.out.println("ID de la Colmena: " + associatedColmena.getID());
                 System.out.println("Evento: " + eventoMielField + "\nEn la fecha: "+datePicker.getText()+" "+timePicker.getText());
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime dateTimeParsed = LocalDateTime.parse(datePicker.getText()+" "+timePicker.getText(), formatter); 
-                if(tipoEvento.equals(enEvento.MIEL)){
-                    if(eventoMielField.getText().isEmpty()){
-                        JOptionPane.showMessageDialog(VentanaRegistroEventos.this,"Error al ingresar datos","Aviso",JOptionPane.ERROR_MESSAGE);
-                    }else{
-                        String mielAgregar = eventoMielField.getText();
-                        Integer mielInt = Integer.parseInt(mielAgregar);
-                        associatedColmena.addToMielProducida(mielInt);
-                        Evento eventoAgregar = new Evento("Agregar "+eventoMielField.getText()+"mL de miel",dateTimeParsed);
-                        associatedColmena.addEvento(eventoAgregar);
-                        dispose();
-                    }
-                }else{
-                Evento eventoAgregar = new Evento(eventoMielField.getText(),dateTimeParsed);
-                associatedColmena.addEvento(eventoAgregar);
+                String eventoMielFieldText = eventoMielField.getText();
+                VentanaRegistroEventosController controller = new VentanaRegistroEventosController(VentanaRegistroEventos.this);
+                controller.registrar(associatedColmena, dateTimeParsed, associatedSector, tipoEvento, eventoMielFieldText);
                 dispose();
-                }
                     
                 }
             }
